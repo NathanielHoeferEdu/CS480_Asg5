@@ -13,11 +13,36 @@
 #ifndef STATEMENT_H
 #define STATEMENT_H
 
+#include <vector>
+#include "movie.h"
 
-class statement
+
+class Statement
 {
 public:
-    statement();
+    Statement(std::vector<Movie*> &movies);
+
+    /**
+     * @brief Print to console the statement containing all of the movies and their total cost, along with the renter points that are accrued.
+     */
+    void printStatement();
+
+private:
+    double mTotalCost = 0.0;
+    int mTotalRentersPoints = 0;
+    std::vector<Movie*> mMovies;
+
+    /**
+     * @brief Calculate the total cost of all the movies
+     * @return Total cost of movies
+     */
+    double calcTotalCost();
+
+    /**
+     * @brief Calculates the total rental points for all the movies
+     * @return Total rental points for movies
+     */
+    int calcTotalRentersPoints();
 };
 
 #endif // STATEMENT_H
