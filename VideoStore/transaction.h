@@ -14,27 +14,34 @@
 #define TRANSACTION_H
 
 #include <vector>
+#include "movie.h"
 
-/**
- * @brief Provides methods associated with quicksort to analyze runtimes under various conditions.
- */
-class QuickSort
+class Transaction
 {
 public:
-
-
+    Transaction(std::vector<Movie*> movies);
+    ~Transaction();
 
     /**
-     * @brief Sorts an array using the quicksort method choosing the first element as pivot.
-     *
-     * @param arr: The array to be sorted.
+     * @brief Adds an additional movie to the transaction
+     * @param movie
      */
-    static void quicksort(std::vector<int> &arr);
+    void addMovie(Movie *movie);
 
+    /**
+     * @brief Returns a copy of all of the current movies within the transaction
+     * @return Movies in transaction
+     */
+    std::vector<Movie*> getMovies();
 
+    /**
+     * @brief Removes the movie based on matching id's. If movie doesn't exist within transaction, this method is simply a no-op
+     * @param movie
+     */
+    void removeMovie(Movie *movie);
 
 private:
-
-
+    std::vector<Movie*> mMovies;
+};
 
 #endif // TRANSACTION_H

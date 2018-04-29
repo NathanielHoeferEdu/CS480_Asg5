@@ -15,8 +15,10 @@
 #include <iostream>
 #include <iomanip>
 #include "statement.h"
+#include "transaction.h"
+#include "movie.h"
 
-Statement::Statement(std::vector<Movie *> &movies) : mMovies(movies)
+Statement::Statement(std::vector<Transaction> &transactions) : mTransactions(transactions)
 {
     mTotalCost = calcTotalCost();
     mTotalRentersPoints = calcTotalRentersPoints();
@@ -25,8 +27,6 @@ Statement::Statement(std::vector<Movie *> &movies) : mMovies(movies)
 void Statement::printStatement()
 {
     std::cout << std::setfill('*');
-    std::cout << std::setw(36) << "" << std::endl;
-    std::cout << "Video Store Transaction" << std::endl;
     std::cout << std::setw(36) << "";
     std::cout << std::endl << std::endl << std::setfill(' ');
 
@@ -37,11 +37,14 @@ void Statement::printStatement()
     std::cout << std::setw(36) << "";
     std::cout << std::endl << std::setfill(' ');
 
-    for (int i = 0; i < (int)mMovies.size(); i++) {
-        std::cout << std::left << std::setw(20) << mMovies[i]->getTitle();
-        std::cout << std::right << " $ " << std::setw(7) << mMovies[i]->getPrice();
-        std::cout << std::right << std::setw(6) << mMovies[i]->getRentDays();
-        std::cout << std::endl;
+    for (int i = 0; i < (int)mTransactions.size(); i++) {
+        std::vector<Movie*> t_movies = mTransactions[i].getMovies();
+        for (int j = 0; j < (int)t_movies.size(); j++) {
+            std::cout << std::left << std::setw(20) << t_movies[j]->getTitle();
+            std::cout << std::right << " $ " << std::setw(7) << t_movies[j]->getPrice();
+            std::cout << std::right << std::setw(6) << t_movies[j]->getRentDays();
+            std::cout << std::endl;
+        }
     }
 
     std::cout << std::setfill('-');
@@ -55,15 +58,18 @@ void Statement::printStatement()
     std::cout << std::right << std::setw(11) << mTotalRentersPoints;
     std::cout << std::setfill('*');
     std::cout << std::endl << std::setw(36) << "";
-
-    std::cout << "\n\nThank you, please come again\n" << std::endl;
 }
 
 double Statement::calcTotalCost()
 {
     double cost = 0.0;
-    for (int i = 0; i < (int)mMovies.size(); i++) {
-        cost += mMovies[i]->getPrice();
+    for (int i = 0; i < (int)mTransactions.size(); i++) {
+        std::vector<Movie*> t_movies = mTransactions[i].getMovies();
+        for (int j = 0; j < (int)t_movies.size(); j++) {
+            double mov_price = t_movies[j]->getPrice();
+            int days_rented = t_movies[j]->getRentDays();
+            cost += mov_price * days_rented;
+        }
     }
     return cost;
 }
@@ -71,8 +77,11 @@ double Statement::calcTotalCost()
 int Statement::calcTotalRentersPoints()
 {
     int points = 0;
-    for (int i = 0; i < (int)mMovies.size(); i++) {
-        points += mMovies[i]->getRenterPoints();
+    for (int i = 0; i < (int)mTransactions.size(); i++) {
+        std::vector<Movie*> t_movies = mTransactions[i].getMovies();
+        for (int j = 0; j < (int)t_movies.size(); j++) {
+            points += t_movies[j]->getRenterPoints();
+        }
     }
     return points;
 }

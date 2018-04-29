@@ -14,13 +14,12 @@
 #define STATEMENT_H
 
 #include <vector>
-#include "movie.h"
-
+#include "transaction.h"
 
 class Statement
 {
 public:
-    Statement(std::vector<Movie*> &movies);
+    Statement(std::vector<Transaction> &transactions);
 
     /**
      * @brief Print to console the statement containing all of the movies and their total cost, along with the renter points that are accrued.
@@ -30,7 +29,7 @@ public:
 private:
     double mTotalCost = 0.0;
     int mTotalRentersPoints = 0;
-    std::vector<Movie*> mMovies;
+    std::vector<Transaction> mTransactions;
 
     /**
      * @brief Calculate the total cost of all the movies

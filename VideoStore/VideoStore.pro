@@ -7,9 +7,12 @@ CONFIG -= qt
 SOURCES += \
         main.cpp \
     movie.cpp \
-    statement.cpp
+    statement.cpp \
+    transaction.cpp \
+    customer.cpp
 
 HEADERS += \
-    transaction.h \
     movie.h \
-    statement.h
+    statement.h \
+    transaction.h \
+    customer.h
