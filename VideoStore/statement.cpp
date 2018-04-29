@@ -50,7 +50,7 @@ void Statement::printStatement()
     std::cout << std::setfill('-');
     std::cout << std::setw(36) << "";
     std::cout << std::endl << std::setfill(' ');
-    std::cout << std::left << std::setw(25) << "Total";
+    std::cout << std::left << std::setw(24) << "Total";
     std::cout << std::right << std::setw(7) << " $ " << mTotalCost;
     std::cout << std::endl << std::endl;
 

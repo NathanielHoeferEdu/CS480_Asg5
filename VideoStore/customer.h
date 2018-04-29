@@ -27,7 +27,16 @@ public:
      */
     void printStatement();
 
+    /**
+     * @brief Add a new transaction to the customers profile
+     * @param transaction
+     */
     void addTransaction(Transaction &transaction);
+
+    /**
+     * @return Customer ID
+     */
+    int getId();
 
 private:
     std::vector<Transaction> mTransactions;
